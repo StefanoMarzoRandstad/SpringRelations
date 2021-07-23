@@ -29,7 +29,7 @@ public class Post {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String text;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "person_id")
 	private Person person;
 	@ManyToMany(fetch = FetchType.LAZY)

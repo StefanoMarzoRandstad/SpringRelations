@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,12 +29,12 @@ public class Person {
 	private String surname;
 	private String mail;
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	// Attributo che deve avere la persona su cui si fa la join
 	@JoinColumn(name = "address_id")
 	private Address address;
 	
-	@OneToMany(mappedBy = "person")
+	@OneToMany(mappedBy = "person", fetch = FetchType.LAZY)
 	private List<Post> posts;
 
 	
