@@ -2,14 +2,21 @@ package com.s2e.app.model;
 
 import java.util.List;
 
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+//@JsonIdentityInfo(
+//		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+//		  property = "id")
 
 @Entity
 @Table(name = "HASHTAG")
@@ -21,8 +28,7 @@ public class HashTag {
 	private String name;
 	private String link;
 	// entità debole
-	@ManyToMany(mappedBy = "hashtags")
-	@JsonIgnore
+	@ManyToMany(mappedBy = "hashtags", fetch = FetchType.LAZY)
 	private List<Post> posts;
 	
 	public int getId() {

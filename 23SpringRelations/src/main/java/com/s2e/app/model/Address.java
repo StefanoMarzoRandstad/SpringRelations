@@ -1,13 +1,19 @@
 package com.s2e.app.model;
 
 import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "id")
 
 @Entity
 public class Address {
@@ -28,7 +34,6 @@ public class Address {
 	// Devo mettere qui il nome dell' attributo in persona e che si riferisce a
 	// questo
 	@OneToOne(mappedBy = "address")
-	@JsonIgnore
 	private Person person;
 
 	public Address(int id, String streetName, String streetNumber, int postalCode, String city, String country,

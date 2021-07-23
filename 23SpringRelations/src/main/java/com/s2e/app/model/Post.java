@@ -2,7 +2,9 @@ package com.s2e.app.model;
 
 import java.util.List;
 
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,7 +13,14 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+/*
+ * Considera l'identificatore come chiave esterna, serve per evitare i loop
+ */
+//@JsonIdentityInfo(
+//		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+//		  property = "id")
 
 @Entity
 public class Post {
@@ -22,9 +31,8 @@ public class Post {
 	private String text;
 	@ManyToOne
 	@JoinColumn(name = "person_id")
-	@JsonIgnore
 	private Person person;
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY)
 	// Costruisco la tabella relazionale
 	@JoinTable(name = "post_hashtag", 
 	joinColumns = @JoinColumn(name = "post_id", referencedColumnName = "id"),
